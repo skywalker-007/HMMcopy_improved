@@ -49,9 +49,11 @@ plotSegments2 <- function (correctOutput, segmentOutput,
     pdf("copy_number.pdf",width = 16, height = 4)	
     
     par(cex.main = 0.5, cex.lab = 1, cex.axis = 1, mar = c(2.5, 1.5,0.5, 0.5), mgp = c(1, 0.5, 0))
-    plot(x, y,col=cols[color],xlim = c(0,tail(last,1)), ylim = c(-3,3),ylab="", xaxt = "n", xaxs = "i", yaxs = "i",...)
-    axis(side = 1, at = xtick, labels = paste0("chr",c(1:22,"X","Y")), tick = FALSE,las = 2, hadj = 0.9)
-    axis(side = 2, at = seq(-3,3,0.5), labels = FALSE)	
+    plot(x, y,col=cols[color],xlim = c(0,tail(last,1)), ylim = c(-3,3),ylab="",xlab = "",xaxt = "n", yaxt = "n",xaxs = "i", yaxs = "i",...)
+#    axis(side = 1, at = xtick, labels = paste0("chr",c(1:22,"X","Y")), tick = FALSE,las = 1, hadj = 0.9)
+    axis(side = 1, at = xtick, labels = c(1:22,"X","Y"), cex.axis = 0.7, tick = FALSE,las = 1,font = 2)
+    ylab = as.character.numeric_version(round(seq(-3,3,0.5),1))
+    axis(side = 2, at = round(seq(-3,3,0.5),1),labels = ylab,las = 1,cex.axis = 0.8)	
     for (k in 1:nrow(segs)) {
        lines(c(segs$start[k], segs$end[k]), rep(segs$median[k], 2), lwd = 1,
             col = "green")
